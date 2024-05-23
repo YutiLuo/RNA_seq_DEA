@@ -9,11 +9,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="LuoYuting" />
+<meta name="author" content="Yuting Luo" />
 
 <meta name="date" content="2024-05-20" />
 
-<title>DEA</title>
+<title>Differential Gene Expression Analysis</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -350,60 +350,37 @@ display: none;
 
 
 
-<h1 class="title toc-ignore">DEA</h1>
-<h4 class="author">LuoYuting</h4>
+<h1 class="title toc-ignore">Differential Gene Expression Analysis</h1>
+<h4 class="author">Yuting Luo</h4>
 <h4 class="date">2024-05-20</h4>
 
 </div>
 
 
-<div id="r-markdown" class="section level2">
-<h2>R Markdown</h2>
-<p>This is an R Markdown document. Markdown is a simple formatting
-syntax for authoring HTML, PDF, and MS Word documents. For more details
-on using R Markdown see <a href="http://rmarkdown.rstudio.com" class="uri">http://rmarkdown.rstudio.com</a>.</p>
-<p>When you click the <strong>Knit</strong> button a document will be
-generated that includes both content as well as the output of any
-embedded R code chunks within the document. You can embed an R code
-chunk like this: # Count normalization ## Normalization ### Install
-packages</p>
-<pre class="r"><code>if (!require(&quot;BiocManager&quot;, quietly = TRUE))
-    install.packages(&quot;BiocManager&quot;)
-
-BiocManager::install(&quot;DEA&quot;)</code></pre>
-<pre><code>## Bioconductor version 3.19 (BiocManager 1.30.23), R 4.4.0 (2024-04-24 ucrt)</code></pre>
-<pre><code>## Installing package(s) &#39;DEA&#39;</code></pre>
-<pre><code>## Warning: package &#39;DEA&#39; is not available for Bioconductor version &#39;3.19&#39;
-## 
-## A version of this package for your version of R might be available elsewhere,
-## see the ideas at
-## https://cran.r-project.org/doc/manuals/r-patched/R-admin.html#Installing-packages</code></pre>
-<pre><code>## Installation paths not writeable, unable to update packages
-##   path: C:/Program Files/R/R-4.4.0/library
-##   packages:
-##     KernSmooth, survival</code></pre>
-<pre><code>## Old packages: &#39;limma&#39;, &#39;S4Arrays&#39;, &#39;SparseArray&#39;</code></pre>
-<pre class="r"><code>#install EdgeR package
-if (!require(&quot;BiocManager&quot;, quietly = TRUE))
-    install.packages(&quot;BiocManager&quot;)
-
-BiocManager::install(&quot;edgeR&quot;)</code></pre>
-<pre><code>## Bioconductor version 3.19 (BiocManager 1.30.23), R 4.4.0 (2024-04-24 ucrt)</code></pre>
-<pre><code>## Warning: package(s) not installed when version(s) same as or greater than current; use
-##   `force = TRUE` to re-install: &#39;edgeR&#39;</code></pre>
-<pre><code>## Installation paths not writeable, unable to update packages
-##   path: C:/Program Files/R/R-4.4.0/library
-##   packages:
-##     KernSmooth, survival
-## Old packages: &#39;limma&#39;, &#39;S4Arrays&#39;, &#39;SparseArray&#39;</code></pre>
+<div id="count-normalization" class="section level1">
+<h1>Count normalization</h1>
+<div id="normalization" class="section level2">
+<h2>Normalization</h2>
+<div id="install-packages" class="section level3">
+<h3>Install packages</h3>
+<p>#install DESeq2 package if (!require(“BiocManager”, quietly = TRUE))
+install.packages(“BiocManager”)</p>
+<p>BiocManager::install(“DESeq2”)</p>
+<p>#install EdgeR package if (!require(“BiocManager”, quietly = TRUE))
+install.packages(“BiocManager”)</p>
+<p>BiocManager::install(“edgeR”)</p>
+</div>
 <div id="build-a-file-description" class="section level3">
 <h3>Build a file description</h3>
-<pre class="r"><code>#file fileDesc
+</div>
+<div id="read-data-files" class="section level3">
+<h3>Read data files</h3>
+<pre class="r"><code>#set the working directory
 setwd(&#39;E:/UH/FOR-271 Practical Bioinformatics/topic 8/RNA_seq_DEA&#39;)</code></pre>
 </div>
 <div id="read-raw-data" class="section level3">
 <h3>read raw data</h3>
-<pre class="r"><code>#Set to the current work directory
+<pre class="r"><code>#read files
 Coinfection.targets&lt;-read.delim(&quot;./data/fileDesc.txt&quot;)
 
 #change the rawnames of the dataframe Coinfection.targets
@@ -579,6 +556,7 @@ sizeFactors(dds)</code></pre>
 <h3>Generate the normalized counts</h3>
 <pre class="r"><code>normalized_counts &lt;- counts(dds, normalized=TRUE)
 write.csv(normalized_counts, file=&quot;./results/coinfection_normalized_counts_DESeq2.csv&quot;)</code></pre>
+</div>
 </div>
 </div>
 <div id="sample-level-quality-control" class="section level1">
@@ -830,7 +808,7 @@ Infection.filtered.normCPM &lt;-cpm(calcNormFactors(Infection))
 #Export TMM normalized count table after filtering
 write.csv(Infection.filtered.normCPM, file=&quot;./results/Infection.filtered.normCPM.csv&quot;)</code></pre>
 <div id="differentailly-gene-expression-analysis" class="section level2">
-<h2>differentailly gene expression analysis</h2>
+<h2>.differentailly gene expression analysis</h2>
 <pre class="r"><code>#Treatment factor
 group&lt;-factor(c(&#39;Ha&#39;,&#39;Ha&#39;,&#39;Ha&#39;,&quot;Ctr&quot;,&quot;Ctr&quot;,&quot;Ctr&quot;))
 #Ctr is the intercept

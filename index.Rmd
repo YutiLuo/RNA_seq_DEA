@@ -1,6 +1,6 @@
 ---
-title: "DEA"
-author: "LuoYuting"
+title: "Differential Gene Expression Analysis"
+author: "Yuting Luo"
 date: "2024-05-20"
 output: html_document
 ---
@@ -9,36 +9,32 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
 # Count normalization
 ## Normalization
 ### Install packages
-```{r}
-if (!require("BiocManager", quietly = TRUE))
-    install.packages("BiocManager")
 
-BiocManager::install("DEA")
+  #install DESeq2 package
+  if (!require("BiocManager", quietly = TRUE))
+      install.packages("BiocManager")
 
-#install EdgeR package
-if (!require("BiocManager", quietly = TRUE))
-    install.packages("BiocManager")
+  BiocManager::install("DESeq2")
 
-BiocManager::install("edgeR")
-```
+  #install EdgeR package
+  if (!require("BiocManager", quietly = TRUE))
+      install.packages("BiocManager")
+
+  BiocManager::install("edgeR")
+
 
 ### Build a file description
+### Read data files
 ```{r}
-#file fileDesc
+#set the working directory
 setwd('E:/UH/FOR-271 Practical Bioinformatics/topic 8/RNA_seq_DEA')
 ```
-
 ### read raw data
 ```{r}
-#Set to the current work directory
+#read files
 Coinfection.targets<-read.delim("./data/fileDesc.txt")
 
 #change the rawnames of the dataframe Coinfection.targets
